@@ -32,7 +32,7 @@ def check_site(site_dict):
     return status_code
 
 def send_email(sites):
-    subject = '************** SITE(S) DOWN! **************'
+    subject = '************** SITE(S) DOWN **************'
     body = 'The following sites are currently down:\n\n'
     for site in sites:
         body += f"{site['url']}\n"
@@ -44,14 +44,15 @@ def send_email(sites):
 
     
 while True:
-    print('OK')
+
     # List containing sites that require notification.
     sites_to_alert = []
     
     # Loop through all sites and check their status.
     for site_name, site_dict in SITES.items():
         
-        # Do the following if the site's status has just changed from 'up' to down'.
+        # Do the following if the site's status has just changed from 'up' to
+        # down'.
         if site_dict['status'] == 'up' and check_site(site_dict) != 200:
 
             # Add the site to sites_to_alert.
@@ -71,5 +72,5 @@ while True:
         send_email(sites_to_alert)
     
     # Wait for 30 seconds.
-    sleep(30)
+    sleep(60)
 
